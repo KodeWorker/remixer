@@ -22,8 +22,16 @@ huggingface-cli download fishaudio/s2-pro --local-dir checkpoints/s2-pro
 
 ## Run the server
 
+Use the launcher script from anywhere:
+
 ```bash
-python tools/api_server.py --listen 0.0.0.0:8888
+uv run scripts/start_fish_speech.py --dir /path/to/fish-speech --checkpoint /path/to/checkpoints/s2-pro
+```
+
+With a custom address:
+
+```bash
+uv run scripts/start_fish_speech.py --dir /path/to/fish-speech --checkpoint /path/to/checkpoints/s2-pro --listen 127.0.0.1:8888
 ```
 
 The server will be available at `http://127.0.0.1:8888`.
