@@ -38,7 +38,8 @@ def main():
 
     if args.checkpoint:
         checkpoint = Path(args.checkpoint).resolve()
-        cmd += ["--checkpoint-path", str(checkpoint)]
+        cmd += ["--llama-checkpoint-path", str(checkpoint)]
+        cmd += ["--decoder-checkpoint-path", str(checkpoint / "codec.pth")]
 
     cmd += extra
 
