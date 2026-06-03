@@ -24,7 +24,7 @@ Remixer bridges that gap without stripping the content of its depth or character
 
 ```bash
 # Install
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 
 # Run on any video URL
 python remixer.py https://www.youtube.com/watch?v=...
@@ -58,9 +58,9 @@ output/
 
 ## Tech stack
 
-- **Transcription** — [Whisper](https://github.com/openai/whisper)
-- **Translation & summarization** — [Qwen](https://huggingface.co/Qwen) via [llama.cpp](https://github.com/ggml-org/llama.cpp); Claude API support planned
-- **TTS (dubbing)** — [Fish-Speech](https://github.com/fishaudio/fish-speech)
+- **Transcription** — [Whisper](https://github.com/openai/whisper) · [setup guide](doc/whisper.md)
+- **Translation & summarization** — [Qwen](https://huggingface.co/Qwen) via [llama.cpp](https://github.com/ggml-org/llama.cpp) · [setup guide](doc/llama-cpp.md); Claude API support planned
+- **TTS (dubbing)** — [Fish-Speech](https://github.com/fishaudio/fish-speech) · [setup guide](doc/fish-speech.md)
 - **Video download** — [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 
 ## Roadmap
