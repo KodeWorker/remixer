@@ -13,6 +13,7 @@ def summarize(
     target_lang: str = "zh-TW",
     host: str = "http://127.0.0.1:8080",
     model: str = "qwen",
+    timeout: int = 120,
 ) -> str:
     """Summarize transcript segments via llama.cpp server.
 
@@ -22,11 +23,12 @@ def summarize(
 
     response = httpx.post(
         f"{host}/v1/chat/completions",
+        timeout=timeout,
         json={
             "model": model,
             "messages": [
                 {"role": "system", "content": SYSTEM_PROMPT.format(lang=target_lang)},
-                {"role": "user", "content": transcript},
+                {"role": "user", "content": f"{transcript} /no_think"},
             ],
             "temperature": 0.5,
         },

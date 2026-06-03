@@ -53,8 +53,10 @@ python main.py download   https://www.youtube.com/watch?v=...           # → ou
 python main.py transcribe output/video.mp4                              # → output/transcript.json
 python main.py translate  output/transcript.json                        # → output/translated.json
 python main.py summarize  output/transcript.json                        # → output/summary.md
-python main.py subtitles  output/translated.json                        # → output/subtitles.srt/.vtt
-python main.py dub        output/translated.json --video output/video.mp4  # → output/dubbed.mp4
+python main.py subtitles  output/translated.json                                     # → output/subtitles.srt/.vtt
+python main.py separate   output/video.mp4                                           # → output/htdemucs/.../no_vocals.wav
+python main.py dub        output/translated.json --background path/to/no_vocals.wav  # → output/dubbed.mp3
+python main.py merge      output/video.mp4 output/dubbed.mp3                         # → output/dubbed.mp4
 ```
 
 ## Options
@@ -86,17 +88,17 @@ The `run` subcommand also accepts:
 
 - **Transcription** — [Whisper](https://github.com/openai/whisper) · [setup guide](doc/whisper.md)
 - **Translation & summarization** — [Qwen](https://huggingface.co/Qwen) via [llama.cpp](https://github.com/ggml-org/llama.cpp) · [setup guide](doc/llama-cpp.md); Claude API support planned
-- **TTS (dubbing)** — [Fish-Speech](https://github.com/fishaudio/fish-speech) · [setup guide](doc/fish-speech.md)
+- **TTS (dubbing)** — [Fish-Speech](https://github.com/fishaudio/fish-speech) · [setup guide](doc/fish-speech.md) or [Edge-TTS](https://github.com/rany2/edge-tts) (no GPU)
+- **Source separation** — [Demucs](https://github.com/facebookresearch/demucs) (background audio extraction)
 - **Video download** — [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 
 ## Roadmap
 
-- [ ] Core pipeline: transcribe → translate → summarize
-- [ ] Dubbed audio generation
-- [ ] Subtitle export (SRT + VTT)
 - [ ] Child-friendly language simplification
 - [ ] Claude API support for translation & summarization
 - [ ] Web UI for non-technical family members
+- [x] Dubbing: mix original background audio (music, ambience) under dubbed clips using Demucs source separation
+- [x] Dubbing: time-stretch TTS clips to fit segment duration (pitch-preserved via librosa) to prevent overlap
 
 ## License
 

@@ -2,4 +2,8 @@ openai-whisper
 yt-dlp
 httpx
 pydub
+tqdm
+demucs
+librosa
+edge-tts  # optional: lightweight TTS alternative to Fish-Speech, no GPU required
 pytest
