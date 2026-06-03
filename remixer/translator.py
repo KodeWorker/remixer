@@ -6,7 +6,7 @@ SYSTEM_PROMPT = "You are a translator. Translate the given text to {lang}. Outpu
 
 def translate(
     segments: list[dict],
-    target_lang: str = "zh",
+    target_lang: str = "zh-TW",
     host: str = "http://127.0.0.1:8080",
     model: str = "qwen",
 ) -> list[dict]:

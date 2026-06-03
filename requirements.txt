@@ -2,3 +2,4 @@ openai-whisper
 yt-dlp
 httpx
 pydub
+pytest

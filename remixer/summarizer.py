@@ -10,7 +10,7 @@ Be factual and brief."""
 
 def summarize(
     segments: list[dict],
-    target_lang: str = "zh",
+    target_lang: str = "zh-TW",
     host: str = "http://127.0.0.1:8080",
     model: str = "qwen",
 ) -> str:

@@ -6,7 +6,7 @@ from pydub import AudioSegment
 def dub(
     segments: list[dict],
     output_path: str,
-    host: str = "http://127.0.0.1:8181",
+    host: str = "http://127.0.0.1:8888",
     format: str = "mp3",
 ) -> None:
     """Generate dubbed audio from translated segments via Fish-Speech server.

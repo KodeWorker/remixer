@@ -14,10 +14,10 @@ def parse_args():
         description="Remix English video content for Chinese-speaking audiences."
     )
     parser.add_argument("source", help="Video URL or local file path")
-    parser.add_argument("--lang", default="zh", help="Target language (default: zh)")
+    parser.add_argument("--lang", default="zh-TW", help="Target language (default: zh-TW)")
     parser.add_argument("--whisper-model", default="medium", help="Whisper model size (default: medium)")
     parser.add_argument("--llm-host", default="http://127.0.0.1:8080", help="llama.cpp server URL")
-    parser.add_argument("--tts-host", default="http://127.0.0.1:8181", help="Fish-Speech server URL")
+    parser.add_argument("--tts-host", default="http://127.0.0.1:8888", help="Fish-Speech server URL")
     parser.add_argument("--output", default="./output", help="Output directory (default: ./output)")
     parser.add_argument("--simplify", action="store_true", help="Rewrite content for younger audiences")
     parser.add_argument("--simplify-age", type=int, default=4, help="Target age for simplification (default: 4)")

@@ -2,6 +2,10 @@
 
 Fish-Speech is used for generating Chinese dubbed audio from translated text.
 
+## Requirements
+
+Fish-Speech recommends a GPU with at least **24 GB VRAM** for optimal performance. It can run on CPU but will be significantly slower.
+
 ## Install
 
 ```bash
@@ -13,24 +17,21 @@ uv pip install -e .
 ## Download model weights
 
 ```bash
-huggingface-cli download fishaudio/fish-speech-1.5 --local-dir ./checkpoints/fish-speech-1.5
+huggingface-cli download fishaudio/s2-pro --local-dir checkpoints/s2-pro
 ```
 
 ## Run the server
 
 ```bash
-python -m tools.api_server \
-  --listen 127.0.0.1:8181 \
-  --llama-checkpoint-path ./checkpoints/fish-speech-1.5 \
-  --decoder-checkpoint-path ./checkpoints/fish-speech-1.5/firefly-gan-vq-fsq-8x1024-21hz-generator.pth
+python tools/api_server.py --listen 0.0.0.0:8888
 ```
 
-The server will be available at `http://127.0.0.1:8181`.
+The server will be available at `http://127.0.0.1:8888`.
 
 ## Verify
 
 ```bash
-curl http://127.0.0.1:8181/v1/tts \
+curl http://127.0.0.1:8888/v1/tts \
   -H "Content-Type: application/json" \
   -d '{
     "text": "你好，世界！",
@@ -41,4 +42,4 @@ curl http://127.0.0.1:8181/v1/tts \
 
 ## Note
 
-Fish-Speech runs best on a CUDA GPU but also works on CPU (slower). For reference voice cloning, you can provide a short audio sample to match a specific speaker's voice — see the [Fish-Speech docs](https://speech.fish.audio) for details.
+For reference voice cloning, you can provide a short audio sample to match a specific speaker's voice — see the [Fish-Speech docs](https://speech.fish.audio) for details.

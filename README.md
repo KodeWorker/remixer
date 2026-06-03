@@ -48,7 +48,7 @@ output/
 
 | Flag | Description |
 |------|-------------|
-| `--lang` | Target language (default: `zh`) |
+| `--lang` | Target language (default: `zh-TW`) |
 | `--simplify` | Rewrite content for younger audiences |
 | `--simplify-age` | Target age for simplification (default: `4`) |
 | `--no-summary` | Skip summary |
