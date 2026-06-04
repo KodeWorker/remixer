@@ -4,19 +4,23 @@ from tqdm import tqdm
 
 SYSTEM_PROMPT = (
     "You are a translator. Translate each numbered line to {lang}. "
-    "Return only the numbered translations in the exact same format. "
+    "Each line includes its duration in seconds — keep the translation concise enough to be spoken naturally within that time. "
+    "Return only the numbered translations in the exact same format, without the duration tag. "
     "Do not merge or split lines. No explanations. /no_think"
 )
 
 
 def _translate_batch(
-    texts: list[str],
+    segments: list[dict],
     target_lang: str,
     host: str,
     model: str,
     timeout: int,
 ) -> list[str]:
-    numbered = "\n".join(f"{i + 1}. {t}" for i, t in enumerate(texts))
+    numbered = "\n".join(
+        f"{i + 1}. [{s['end'] - s['start']:.1f}s] {s['text']}"
+        for i, s in enumerate(segments)
+    )
     response = httpx.post(
         f"{host}/v1/chat/completions",
         timeout=timeout,
@@ -38,9 +42,9 @@ def _translate_batch(
         if line and line[0].isdigit() and ". " in line:
             translations.append(line.split(". ", 1)[1])
 
-    if len(translations) != len(texts):
+    if len(translations) != len(segments):
         raise ValueError(
-            f"Expected {len(texts)} translations, got {len(translations)}. "
+            f"Expected {len(segments)} translations, got {len(translations)}. "
             f"Response:\n{raw}"
         )
     return translations
@@ -64,8 +68,7 @@ def translate(
     with tqdm(total=len(segments), desc="Translating", unit="seg") as bar:
         for batch in batches:
             bar.set_postfix(status="requesting...")
-            texts = [s["text"] for s in batch]
-            translations = _translate_batch(texts, target_lang, host, model, timeout)
+            translations = _translate_batch(batch, target_lang, host, model, timeout)
             for segment, translation in zip(batch, translations):
                 translated.append({**segment, "translation": translation})
             bar.update(len(batch))
